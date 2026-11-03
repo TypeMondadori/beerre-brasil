@@ -1,8 +1,4 @@
-const profiles = [
-  { id: 1, initials: 'EC', name: 'Empresa Contábil', category: 'Contabilidade', city: 'Cidade exemplo', state: 'BR', mode: 'Online', tags: ['Perfil de exemplo', 'Atendimento nacional'], cover: '', description: 'Exemplo visual de como uma empresa poderá apresentar seus serviços. Nenhum vínculo, recomendação ou validação real está sendo informado.', hours: 'Informado pelo cadastrado' },
-  { id: 2, initials: 'EP', name: 'Escritório Profissional', category: 'Advocacia', city: 'Cidade exemplo', state: 'BR', mode: 'Presencial', tags: ['Perfil de exemplo', 'Atendimento local'], cover: 'blue-cover', description: 'Exemplo visual de perfil profissional. Os perfis públicos reais dependerão de cadastro e autorização.', hours: 'Informado pelo cadastrado' },
-  { id: 3, initials: 'CE', name: 'Comércio Exemplo', category: 'Restaurantes', city: 'Cidade exemplo', state: 'BR', mode: 'Entrega', tags: ['Perfil de exemplo', 'Estabelecimento'], cover: 'gold-cover', description: 'Exemplo visual de estabelecimento. Avaliações e recomendações só aparecerão quando forem reais.', hours: 'Informado pelo cadastrado' }
-];
+const profiles = [];
 
 const roadmap = [
   { icon: '▣', title: 'Vagas e talentos', state: 'PLANEJADO', text: 'Empresas publicam oportunidades e encontram profissionais da comunidade.' },
@@ -30,7 +26,11 @@ function profileCard(profile) {
   </article>`;
 }
 
-function renderFeatured() { q('#featured-profiles').innerHTML = profiles.slice(0, 3).map(profileCard).join(''); }
+function emptyProfiles(message) {
+  return `<div class="panel empty-profiles"><span class="category-icon">＋</span><h3>Nenhum perfil publicado ainda</h3><p class="muted">${message}</p><button class="primary" data-nav="indicar">Quero participar do início</button></div>`;
+}
+
+function renderFeatured() { q('#featured-profiles').innerHTML = emptyProfiles('Os primeiros perfis serão criados a partir de pré-cadastros reais e autorizados.'); }
 
 function renderResults() {
   const term = q('#explore-search').value.toLowerCase().trim();
@@ -40,8 +40,8 @@ function renderResults() {
     const haystack = [p.name, p.category, p.city, ...p.tags].join(' ').toLowerCase();
     return (!term || haystack.includes(term)) && (!city || p.city === city) && (!mode || p.mode === mode);
   });
-  q('#result-count').textContent = 'Perfis demonstrativos';
-  q('#results-grid').innerHTML = filtered.length ? filtered.map(profileCard).join('') : `<div class="panel"><h3>Nenhum perfil encontrado</h3><p class="muted">Tente outra categoria ou indique um profissional para a Bê Erre.</p><button class="primary" data-nav="indicar">Fazer uma indicação</button></div>`;
+  q('#result-count').textContent = 'Nenhum perfil publicado';
+  q('#results-grid').innerHTML = filtered.length ? filtered.map(profileCard).join('') : emptyProfiles('A busca será preenchida somente com pessoas e empresas que concluírem o cadastro e autorizarem a publicação.');
 }
 
 function navigate(view, query = '') {
@@ -100,10 +100,8 @@ q('#home-search').addEventListener('keydown', event => { if (event.key === 'Ente
 q('#referral-form').addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(event.target);
-  q('#referral-count').textContent = '1';
-  q('#referral-progress').style.width = '33%';
   event.target.reset();
-  showMessage('Indicação enviada!', `${data.get('name')} foi adicionado à sua lista de indicações. A publicação dependerá da aceitação do convidado.`);
+  showMessage('Formulário em preparação', `Nenhum dado de ${data.get('name')} foi enviado ou armazenado. O envio será ativado junto com o pré-cadastro real.`);
 });
 q('#founder-button').addEventListener('click', () => showMessage('Pré-cadastro demonstrativo', 'Na versão pública, este botão abrirá o pré-cadastro gratuito de 30 dias. Cadastros válidos alimentarão a meta comunitária de 1.000, 2.000, 4.000 e assim por diante.'));
 q('#verify-my-seal').addEventListener('click', () => showMessage('Selo em desenvolvimento', 'Nenhum selo real foi emitido. A validação só será exibida depois que o cadastro e os critérios estiverem funcionando.'));

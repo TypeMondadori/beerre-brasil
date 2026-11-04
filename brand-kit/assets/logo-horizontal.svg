@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="180" viewBox="0 0 760 180" role="img" aria-labelledby="title desc">
+  <title id="title">Bê Erre Brasil</title>
+  <desc id="desc">Logo horizontal da Bê Erre Brasil em azul, verde e amarelo.</desc>
+  <rect width="180" height="180" rx="42" fill="#002776"/>
+  <path d="M35 120C62 92 83 111 107 82C122 64 135 53 150 42" fill="none" stroke="#009C3B" stroke-width="15" stroke-linecap="round"/>
+  <circle cx="149" cy="42" r="13" fill="#FFDF00"/>
+  <text x="39" y="88" fill="#FFFFFF" font-family="Manrope,Arial,sans-serif" font-size="51" font-weight="800" letter-spacing="-3">BR</text>
+  <text x="215" y="83" fill="#002776" font-family="Manrope,Arial,sans-serif" font-size="64" font-weight="800" letter-spacing="-3">BÊ ERRE</text>
+  <text x="219" y="126" fill="#009C3B" font-family="Manrope,Arial,sans-serif" font-size="25" font-weight="800" letter-spacing="10">BRASIL</text>
+  <circle cx="641" cy="117" r="7" fill="#FFDF00"/>
+</svg>

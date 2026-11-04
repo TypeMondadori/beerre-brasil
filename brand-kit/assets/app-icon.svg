@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Ícone Bê Erre Brasil</title>
+  <desc id="desc">Ícone azul com monograma BR, linha verde ascendente e ponto amarelo.</desc>
+  <rect width="512" height="512" rx="120" fill="#002776"/>
+  <path d="M92 350C167 274 225 329 291 245C333 192 371 155 419 118" fill="none" stroke="#009C3B" stroke-width="42" stroke-linecap="round"/>
+  <circle cx="419" cy="118" r="37" fill="#FFDF00"/>
+  <text x="104" y="259" fill="#FFFFFF" font-family="Manrope,Arial,sans-serif" font-size="158" font-weight="800" letter-spacing="-12">BR</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+  <title id="title">Bê Erre Brasil — conceito Palavra Forte</title>
+  <desc id="desc">Logotipo tipográfico azul com acento amarelo e Brasil em verde.</desc>
+  <rect width="900" height="260" rx="28" fill="#FFFFFF"/>
+  <text x="56" y="157" fill="#002776" font-family="Arial Black,Arial,sans-serif" font-size="116" font-weight="900" letter-spacing="-10">BÊ</text>
+  <rect x="272" y="75" width="12" height="88" rx="6" fill="#FFDF00"/>
+  <text x="310" y="157" fill="#002776" font-family="Arial Black,Arial,sans-serif" font-size="116" font-weight="900" letter-spacing="-10">ERRE</text>
+  <text x="625" y="156" fill="#009C3B" font-family="Arial, sans-serif" font-size="35" font-weight="800" letter-spacing="9">BRASIL</text>
+  <rect x="58" y="184" width="756" height="8" rx="4" fill="#009C3B"/>
+</svg>

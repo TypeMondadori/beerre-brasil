@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+  <title id="title">Bê Erre Brasil — conceito Elo BR</title>
+  <desc id="desc">Monograma BR formado por elos e nome Bê Erre Brasil.</desc>
+  <rect width="900" height="260" rx="28" fill="#FFFFFF"/>
+  <path d="M66 65h68c43 0 63 49 32 74 39 22 19 76-29 76H66V65zm39 34v27h27c20 0 20-27 0-27h-27zm0 60v27h31c21 0 21-27 0-27h-31z" fill="#002776"/>
+  <path d="M157 65h45c68 0 70 91 22 108l35 42h-49l-29-38v38h-39v-82h56c24 0 24-34 0-34h-41V65z" fill="#009C3B"/>
+  <circle cx="237" cy="71" r="13" fill="#FFDF00"/>
+  <text x="310" y="142" fill="#002776" font-family="Arial Black,Arial,sans-serif" font-size="84" font-weight="900" letter-spacing="-7">BÊ ERRE</text>
+  <text x="316" y="187" fill="#009C3B" font-family="Arial,sans-serif" font-size="25" font-weight="800" letter-spacing="13">BRASIL</text>
+</svg>

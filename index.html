@@ -30,7 +30,7 @@
         <span class="eyebrow gold">GERAÇÃO FUNDADORA</span>
         <strong>Ajude a construir a Bê Erre.</strong>
         <p>Indique 3 profissionais que você colocaria na sua rede de confiança.</p>
-        <button class="text-button" data-nav="indicar">Começar agora <span>→</span></button>
+        <button class="text-button" data-open-preregister>Começar agora <span>→</span></button>
       </div>
 
       <button class="user-chip" data-nav="perfil">
@@ -113,7 +113,7 @@
         <div class="founder-banner">
           <div class="founder-emblem"><span>BR</span><small>2026</small></div>
           <div class="founder-copy"><span class="eyebrow gold">30 DIAS · GERAÇÃO FUNDADORA</span><h2>Primeira meta: 1.000 membros.</h2><p>Entre gratuitamente, ajude a completar o primeiro marco e faça parte de quem começou.</p><div class="milestone-progress"><div><strong><span id="member-count">0</span> cadastros válidos</strong><span>Faltam <b id="members-left">1.000</b></span></div><div class="milestone-track"><span id="member-progress" style="width:0%"></span></div><small>O contador será alimentado somente por pré-cadastros reais e válidos.</small></div></div>
-          <button class="primary light" id="founder-button">Fazer pré-cadastro <span>→</span></button>
+          <button class="primary light" data-open-preregister>Fazer pré-cadastro <span>→</span></button>
         </div>
       </section>
 
@@ -201,6 +201,56 @@
     <h2 id="message-title">Tudo certo!</h2>
     <p id="message-copy"></p>
     <button class="primary full" data-close>Continuar</button>
+  </dialog>
+
+  <dialog id="preregister-modal" class="modal preregister-modal">
+    <button class="modal-close" data-close aria-label="Fechar">×</button>
+    <div class="preregister-head">
+      <span class="eyebrow gold">GERAÇÃO FUNDADORA · 30 DIAS</span>
+      <h2>Faça seu pré-cadastro gratuito</h2>
+      <p>Leva menos de dois minutos. Seus dados ficam privados e nenhum perfil será publicado sem sua autorização posterior.</p>
+    </div>
+    <form id="preregister-form" class="preregister-form">
+      <div class="form-grid">
+        <label class="span-2">Seu nome
+          <input required name="full_name" maxlength="120" autocomplete="name" placeholder="Como podemos chamar você?" />
+        </label>
+        <label>Cidade
+          <input required name="city" maxlength="80" autocomplete="address-level2" placeholder="Sua cidade" />
+        </label>
+        <label>Estado
+          <select required name="state" autocomplete="address-level1">
+            <option value="">Selecione</option>
+            <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+          </select>
+        </label>
+        <label>Melhor contato
+          <select required name="contact_type"><option value="whatsapp">WhatsApp</option><option value="email">E-mail</option></select>
+        </label>
+        <label>WhatsApp ou e-mail
+          <input required name="contact_value" maxlength="160" autocomplete="email" placeholder="Seu contato" />
+        </label>
+        <label class="span-2">Como você quer participar?
+          <select required name="participation_type">
+            <option value="">Selecione</option>
+            <option value="member">Quero buscar, contratar e indicar</option>
+            <option value="professional">Sou profissional ou prestador de serviço</option>
+            <option value="company">Represento uma empresa ou estabelecimento</option>
+            <option value="supplier">Sou fornecedor</option>
+            <option value="personal_brand">Sou influenciador, palestrante, mentor ou escritor</option>
+          </select>
+        </label>
+        <label class="span-2">Categoria de atuação <small>opcional</small>
+          <input name="category" maxlength="100" placeholder="Ex.: contabilidade, restaurante, manutenção" />
+        </label>
+      </div>
+      <label class="check-row"><input type="checkbox" name="support_interest" /> <span>Quero conhecer futuramente as formas de apoiar o projeto.</span></label>
+      <label class="check-row"><input required type="checkbox" name="contact_consent" /> <span>Autorizo contato sobre meu pré-cadastro e a abertura da comunidade.</span></label>
+      <label class="check-row"><input required type="checkbox" name="privacy_consent" /> <span>Li e concordo com o uso dos dados somente para o pré-cadastro, contato e organização da Bê Erre Brasil.</span></label>
+      <label class="honeypot" aria-hidden="true">Não preencha<input name="website" tabindex="-1" autocomplete="off" /></label>
+      <button class="primary full" id="preregister-submit" type="submit">Concluir pré-cadastro <span>→</span></button>
+      <small class="privacy-note">Não pedimos documentos, opinião política, endereço completo ou dados financeiros nesta etapa.</small>
+    </form>
   </dialog>
 
   <script src="app.js"></script>

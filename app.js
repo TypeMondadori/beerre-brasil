@@ -13,6 +13,11 @@ const q = (selector, root = document) => root.querySelector(selector);
 const qa = (selector, root = document) => [...root.querySelectorAll(selector)];
 const profileModal = q('#profile-modal');
 const messageModal = q('#message-modal');
+const preregisterModal = q('#preregister-modal');
+
+const backend = {
+  endpoint: ''
+};
 
 function profileCard(profile) {
   return `<article class="profile-card">
@@ -27,7 +32,7 @@ function profileCard(profile) {
 }
 
 function emptyProfiles(message) {
-  return `<div class="panel empty-profiles"><span class="category-icon">＋</span><h3>Nenhum perfil publicado ainda</h3><p class="muted">${message}</p><button class="primary" data-nav="indicar">Quero participar do início</button></div>`;
+  return `<div class="panel empty-profiles"><span class="category-icon">＋</span><h3>Nenhum perfil publicado ainda</h3><p class="muted">${message}</p><button class="primary" data-open-preregister>Quero participar do início</button></div>`;
 }
 
 function renderFeatured() { q('#featured-profiles').innerHTML = emptyProfiles('Os primeiros perfis serão criados a partir de pré-cadastros reais e autorizados.'); }
@@ -86,6 +91,8 @@ document.addEventListener('click', event => {
   if (profileButton) openProfile(profileButton.dataset.profile);
   const close = event.target.closest('[data-close]');
   if (close) close.closest('dialog').close();
+  const preregister = event.target.closest('[data-open-preregister]');
+  if (preregister) preregisterModal.showModal();
   const contact = event.target.closest('[data-contact]');
   if (contact) { profileModal.close(); showMessage('Contato demonstrativo', `Na versão publicada, este botão abrirá o WhatsApp de ${contact.dataset.contact} e registrará a origem do contato.`); }
   const recommend = event.target.closest('[data-recommend]');
@@ -103,9 +110,107 @@ q('#referral-form').addEventListener('submit', event => {
   event.target.reset();
   showMessage('Formulário em preparação', `Nenhum dado de ${data.get('name')} foi enviado ou armazenado. O envio será ativado junto com o pré-cadastro real.`);
 });
-q('#founder-button').addEventListener('click', () => showMessage('Pré-cadastro demonstrativo', 'Na versão pública, este botão abrirá o pré-cadastro gratuito de 30 dias. Cadastros válidos alimentarão a meta comunitária de 1.000, 2.000, 4.000 e assim por diante.'));
 q('#verify-my-seal').addEventListener('click', () => showMessage('Selo em desenvolvimento', 'Nenhum selo real foi emitido. A validação só será exibida depois que o cadastro e os critérios estiverem funcionando.'));
+
+q('#preregister-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const submit = q('#preregister-submit');
+  const data = new FormData(form);
+  if (data.get('website')) return;
+  if (!backend.endpoint) {
+    showMessage('Ativação em andamento', 'O formulário está pronto, mas a planilha ainda não foi conectada. Nenhum dado foi enviado.');
+    return;
+  }
+
+  const contactType = String(data.get('contact_type'));
+  let contactValue = String(data.get('contact_value')).trim();
+  if (contactType === 'whatsapp') contactValue = contactValue.replace(/\D/g, '');
+  else contactValue = contactValue.toLowerCase();
+
+  const payload = {
+    submission_id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    full_name: String(data.get('full_name')).trim(),
+    city: String(data.get('city')).trim(),
+    state: String(data.get('state')),
+    contact_type: contactType,
+    contact_value: contactValue,
+    participation_type: String(data.get('participation_type')),
+    category: String(data.get('category')).trim() || null,
+    support_interest: data.get('support_interest') === 'on',
+    contact_consent: data.get('contact_consent') === 'on',
+    privacy_consent: data.get('privacy_consent') === 'on',
+    source: 'github_pages'
+  };
+
+  submit.disabled = true;
+  submit.textContent = 'Enviando...';
+  try {
+    await fetch(backend.endpoint, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const result = await waitForSubmission(payload.submission_id);
+    if (result.code === 'duplicate') throw new Error('duplicate');
+    if (!result.ok) throw new Error('submit');
+    form.reset();
+    preregisterModal.close();
+    showMessage('Pré-cadastro recebido!', 'Seus dados foram registrados de forma privada. Nenhum perfil foi publicado. Entraremos em contato quando a próxima etapa estiver disponível.');
+    await updateRegistrationCount();
+  } catch (error) {
+    const copy = error.message === 'duplicate' ? 'Este contato já possui um pré-cadastro.' : 'Não foi possível enviar agora. Tente novamente em alguns instantes.';
+    showMessage('Não foi possível concluir', copy);
+  } finally {
+    submit.disabled = false;
+    submit.innerHTML = 'Concluir pré-cadastro <span>→</span>';
+  }
+});
+
+async function updateRegistrationCount() {
+  if (!backend.endpoint) return;
+  try {
+    const result = await jsonp({ action: 'count' });
+    const count = Number(result.count);
+    const target = count < 1000 ? 1000 : 2 ** Math.ceil(Math.log2(count / 1000)) * 1000;
+    q('#member-count').textContent = count.toLocaleString('pt-BR');
+    q('#members-left').textContent = Math.max(target - count, 0).toLocaleString('pt-BR');
+    q('#member-progress').style.width = `${Math.min((count / target) * 100, 100)}%`;
+  } catch (_) {}
+}
+
+async function waitForSubmission(submissionId) {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    await new Promise(resolve => setTimeout(resolve, 700 + attempt * 350));
+    try {
+      const result = await jsonp({ action: 'status', id: submissionId });
+      if (result.found) return result;
+    } catch (_) {}
+  }
+  return { ok: false };
+}
+
+function jsonp(params) {
+  return new Promise((resolve, reject) => {
+    const callback = `__beerre_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => finish(new Error('timeout')), 8000);
+    const finish = (error, value) => {
+      clearTimeout(timeout);
+      script.remove();
+      delete window[callback];
+      error ? reject(error) : resolve(value);
+    };
+    window[callback] = value => finish(null, value);
+    const query = new URLSearchParams({ ...params, callback });
+    script.src = `${backend.endpoint}?${query}`;
+    script.onerror = () => finish(new Error('network'));
+    document.head.appendChild(script);
+  });
+}
 
 renderFeatured();
 renderResults();
 renderRoadmap();
+updateRegistrationCount();

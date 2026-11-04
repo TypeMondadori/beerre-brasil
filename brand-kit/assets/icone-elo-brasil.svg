@@ -4,7 +4,6 @@
   <rect width="512" height="512" rx="108" fill="#009C3B"/>
   <path d="M256 76 436 256 256 436 76 256Z" fill="#FFDF00"/>
   <circle cx="256" cy="256" r="116" fill="#002776"/>
-  <path d="M145 176h82c75 0 81 86 28 107 63 21 50 111-26 111h-84V176zm54 49v38h32c28 0 28-38 0-38h-32zm0 81v39h35c30 0 30-39 0-39h-35z" fill="#FFFFFF"/>
-  <path d="M257 176h62c92 0 96 118 32 143l47 75h-64l-40-67v67h-54V275h77c32 0 32-50 0-50h-60v-49z" fill="#FFFFFF"/>
-  <path d="M225 283h56" stroke="#FFDF00" stroke-width="17" stroke-linecap="round"/>
+  <text x="256" y="303" text-anchor="middle" fill="#FFFFFF" font-family="Arial Black,Arial,sans-serif" font-size="153" font-weight="900" letter-spacing="-16">BR</text>
+  <path d="M208 327h96" stroke="#FFDF00" stroke-width="15" stroke-linecap="round"/>
 </svg>

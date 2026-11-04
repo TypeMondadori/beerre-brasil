@@ -5,9 +5,8 @@
   <rect x="45" y="39" width="220" height="182" rx="42" fill="#009C3B"/>
   <path d="M155 61 239 130 155 199 71 130Z" fill="#FFDF00"/>
   <circle cx="155" cy="130" r="53" fill="#002776"/>
-  <path d="M105 93h38c35 0 38 40 13 50 30 10 24 52-12 52h-39V93zm25 23v18h15c13 0 13-18 0-18h-15zm0 38v18h16c14 0 14-18 0-18h-16z" fill="#FFFFFF"/>
-  <path d="M158 93h29c43 0 45 55 15 67l22 35h-30l-19-31v31h-25v-56h36c15 0 15-23 0-23h-28V93z" fill="#FFFFFF"/>
-  <path d="M143 143h26" stroke="#FFDF00" stroke-width="8" stroke-linecap="round"/>
+  <text x="155" y="154" text-anchor="middle" fill="#FFFFFF" font-family="Arial Black,Arial,sans-serif" font-size="69" font-weight="900" letter-spacing="-7">BR</text>
+  <path d="M134 164h42" stroke="#FFDF00" stroke-width="7" stroke-linecap="round"/>
   <text x="309" y="141" fill="#002776" font-family="Arial Black,Arial,sans-serif" font-size="82" font-weight="900" letter-spacing="-7">BÊ ERRE</text>
   <text x="315" y="187" fill="#009C3B" font-family="Arial,sans-serif" font-size="25" font-weight="800" letter-spacing="13">BRASIL</text>
   <circle cx="769" cy="181" r="7" fill="#FFDF00"/>
